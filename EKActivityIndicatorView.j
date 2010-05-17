@@ -1,7 +1,7 @@
 @implementation EKActivityIndicatorView : CPView
 {
 	BOOL		_isAnimating;
-	int			_step;
+	int		_step;
 	CPTimer		_timer;
 	CPColor		_color;
 	float		_colorRed;
