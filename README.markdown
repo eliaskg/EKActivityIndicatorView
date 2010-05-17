@@ -1,9 +1,11 @@
 EKActivityIndicatorView
 ==========
 
-EKActivityIndicatorView is a class for displaying those "here spins something the app isn't broken"-wheels for the [Cappuccino](http://www.cappuccino.org) framework.
+EKActivityIndicatorView is a class for displaying those "here spins something the app isn't crashed"-wheels for the [Cappuccino](http://www.cappuccino.org) framework.
 
 It works completely without images by drawing the animation with CoreGraphics. This guarantees a stunning performance and the ability of setting the view's size and color with ease. All this is brought to you by a 4 KB file.
+
+Click here to see a [DEMO](http://elias.klughammer.com/EKActivityIndicatorView/)
 
 
 ## Installation
