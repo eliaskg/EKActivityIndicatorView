@@ -84,36 +84,29 @@
 		var miny = CGRectGetMinY(lineRect);
 		var midy = CGRectGetMidY(lineRect);
 		var maxy = CGRectGetMaxY(lineRect);
-		var delta1, delta2, delta3, delta4, delta5, delta6;
+		var delta = [];
 
 		CGContextSetFillColor(c, [CPColor blackColor]);
+		
+		function fillWithOpacity(opacity) {
+			CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:opacity]);
+		}
 
 		for (i=1; i<=12; i++) {
-
-			delta1 = (_step <= 1) ? 11 : -1;
-			delta2 = (_step <= 2) ? 10 : -2;
-			delta3 = (_step <= 3) ? 9 : -3;
-			delta4 = (_step <= 4) ? 8 : -4;
-			delta5 = (_step <= 5) ? 7 : -5;
-			delta6 = (_step <= 6) ? 6 : -6;
 			
-			if (i==_step)
-				CGContextSetFillColor(c, _color);
-			else if (i==_step+delta1)
-				CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:0.9]);
-			else if (i==_step+delta2)
-				CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:0.8]);	
-			else if (i==_step+delta3)
-				CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:0.7]);
-			else if (i==_step+delta4)
-				CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:0.6]);
-			else if (i==_step+delta5)
-				CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:0.5]);	
-			else if (i==_step+delta6)
-				CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:0.4]);
-			else
-				CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:0.3]);
-
+			for (j=1; j<=6; j++) {
+				delta[j] = (_step <= j) ? 12-j : -j;
+			}
+			
+			if (i==_step) CGContextSetFillColor(c, _color);
+			else if (i==_step+delta[1]) fillWithOpacity(0.9);
+			else if (i==_step+delta[2]) fillWithOpacity(0.8);
+			else if (i==_step+delta[3]) fillWithOpacity(0.7);
+			else if (i==_step+delta[4]) fillWithOpacity(0.6);
+			else if (i==_step+delta[5]) fillWithOpacity(0.5);
+			else if (i==_step+delta[6]) fillWithOpacity(0.4);
+			else fillWithOpacity(0.3);
+			
 			CGContextBeginPath(c);
 			CGContextMoveToPoint(c, minx, midy);
 			CGContextAddArcToPoint(c, minx, miny, midx, miny, radius);
