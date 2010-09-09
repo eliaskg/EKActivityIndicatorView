@@ -1,7 +1,7 @@
 @implementation EKActivityIndicatorView : CPView
 {
 	BOOL		_isAnimating;
-	int		_step;
+	int		    _step;
 	CPTimer		_timer;
 	CPColor		_color;
 	float		_colorRed;
@@ -61,18 +61,18 @@
 		_step = 1;
 	else
 		_step++;
-		
+
 	[self setNeedsDisplay:YES];
 }
 
 - (void)drawRect:(CGrect)rect
-{	
+{
 	var bounds = [self bounds];
 	var size = bounds.size.width;
 	var c = [[CPGraphicsContext currentContext] graphicsPort];
-	
+
 	CGContextClearRect(c, rect);
-	
+
 	if (_isAnimating) {
 		var thickness = bounds.size.width * 0.1;
 		var length = bounds.size.width * 0.28;
@@ -87,17 +87,17 @@
 		var delta = [];
 
 		CGContextSetFillColor(c, [CPColor blackColor]);
-		
+
 		function fillWithOpacity(opacity) {
 			CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:opacity]);
 		}
 
 		for (i=1; i<=12; i++) {
-			
+
 			for (j=1; j<=6; j++) {
 				delta[j] = (_step <= j) ? 12-j : -j;
 			}
-			
+
 			if (i==_step) CGContextSetFillColor(c, _color);
 			else if (i==_step+delta[1]) fillWithOpacity(0.9);
 			else if (i==_step+delta[2]) fillWithOpacity(0.8);
@@ -106,7 +106,7 @@
 			else if (i==_step+delta[5]) fillWithOpacity(0.5);
 			else if (i==_step+delta[6]) fillWithOpacity(0.4);
 			else fillWithOpacity(0.3);
-			
+
 			CGContextBeginPath(c);
 			CGContextMoveToPoint(c, minx, midy);
 			CGContextAddArcToPoint(c, minx, miny, midx, miny, radius);
@@ -115,7 +115,7 @@
 			CGContextAddArcToPoint(c, minx, maxy, minx, midy, radius);
 			CGContextFillPath(c);
 			CGContextClosePath(c);
-			CGContextTranslateCTM(c, size/2, size/2); 
+			CGContextTranslateCTM(c, size/2, size/2);
 			CGContextRotateCTM(c, 30*(Math.PI/180));
 			CGContextTranslateCTM(c, -size/2, -size/2);
 		}
@@ -123,4 +123,3 @@
 }
 
 @end
-
