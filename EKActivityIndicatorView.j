@@ -123,3 +123,27 @@
 }
 
 @end
+
+var EKActivityIndicatorViewColor = @"EKActivityIndicatorViewColor";
+
+@implementation EKActivityIndicatorView (CPCoding)
+
+- (id)initWithCoder:(CPCoder)aCoder
+{
+    self = [super initWithCoder:aCoder];
+
+    if (self)
+    {
+        [self setColor:[aCoder decodeObjectForKey:EKActivityIndicatorViewColor]];
+    }
+
+    return self;
+}
+
+- (void)encodeWithCoder:(CPCoder)aCoder
+{
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeObject:[self color] forKey:EKActivityIndicatorViewColor];
+}
+
+@end
