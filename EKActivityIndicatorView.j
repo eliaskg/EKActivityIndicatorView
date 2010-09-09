@@ -67,15 +67,14 @@
 
 - (void)drawRect:(CGrect)rect
 {
-	var bounds = [self bounds];
-	var size = bounds.size.width;
+	var size = MIN(rect.size.height, rect.size.width);
 	var c = [[CPGraphicsContext currentContext] graphicsPort];
 
 	CGContextClearRect(c, rect);
 
 	if (_isAnimating) {
-		var thickness = bounds.size.width * 0.1;
-		var length = bounds.size.width * 0.28;
+		var thickness = rect.size.width * 0.1;
+		var length = rect.size.width * 0.28;
 		var radius = thickness / 2;
 		var lineRect = CGRectMake(size / 2 - thickness / 2, 0, thickness, length);
 		var minx = CGRectGetMinX(lineRect);
