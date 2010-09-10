@@ -12,7 +12,8 @@
 - (id)initWithFrame:(CGRect)aFrame
 {
 	self = [super initWithFrame:aFrame];
-	if(self) {
+	if(self)
+	{
 		_isAnimating = NO;
 		[self setColor:[CPColor blackColor]];
 	}
@@ -21,18 +22,22 @@
 
 - (void)setColor:(CPColor)aColor
 {
-	_color = aColor;
-	_colorRed = [aColor redComponent];
+	_color      = aColor;
+	_colorRed   = [aColor redComponent];
 	_colorGreen = [aColor greenComponent];
-	_colorBlue = [aColor blueComponent];
+	_colorBlue  = [aColor blueComponent];
 }
 
 - (void)startAnimating
 {
 	if (!_isAnimating) {
-		_isAnimating = YES;
-		_step = 1;
-		_timer = [CPTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerDidFire) userInfo:nil repeats:YES];
+		_isAnimating    = YES;
+		_step           = 1;
+		_timer          = [CPTimer scheduledTimerWithTimeInterval:0.1
+		                                                   target:self
+		                                                 selector:@selector(timerDidFire)
+		                                                 userInfo:nil
+		                                                  repeats:YES];
 	}
 }
 
@@ -67,33 +72,36 @@
 
 - (void)drawRect:(CGrect)rect
 {
-	var size = MIN(rect.size.height, rect.size.width);
-	var c = [[CPGraphicsContext currentContext] graphicsPort];
+	var size    = MIN(rect.size.height, rect.size.width),
+	    c       = [[CPGraphicsContext currentContext] graphicsPort];
 
 	CGContextClearRect(c, rect);
 
-	if (_isAnimating) {
-		var thickness = rect.size.width * 0.1;
-		var length = rect.size.width * 0.28;
-		var radius = thickness / 2;
-		var lineRect = CGRectMake(size / 2 - thickness / 2, 0, thickness, length);
-		var minx = CGRectGetMinX(lineRect);
-		var midx = CGRectGetMidX(lineRect);
-		var maxx = CGRectGetMaxX(lineRect);
-		var miny = CGRectGetMinY(lineRect);
-		var midy = CGRectGetMidY(lineRect);
-		var maxy = CGRectGetMaxY(lineRect);
-		var delta = [];
+	if (_isAnimating)
+	{
+		var thickness   = rect.size.width * 0.1,
+		    length      = rect.size.width * 0.28,
+		    radius      = thickness / 2,
+		    lineRect    = CGRectMake(size / 2 - thickness / 2, 0, thickness, length),
+		    minx        = CGRectGetMinX(lineRect),
+		    midx        = CGRectGetMidX(lineRect),
+		    maxx        = CGRectGetMaxX(lineRect),
+		    miny        = CGRectGetMinY(lineRect),
+		    midy        = CGRectGetMidY(lineRect),
+		    maxy        = CGRectGetMaxY(lineRect),
+		    delta       = [];
 
 		CGContextSetFillColor(c, [CPColor blackColor]);
 
-		function fillWithOpacity(opacity) {
+		function fillWithOpacity(opacity)
+		{
 			CGContextSetFillColor(c, [CPColor colorWithRed:_colorRed green:_colorGreen blue:_colorBlue alpha:opacity]);
 		}
 
-		for (i=1; i<=12; i++) {
-
-			for (j=1; j<=6; j++) {
+		for (i=1; i<=12; i++)
+		{
+			for (j=1; j<=6; j++)
+			{
 				delta[j] = (_step <= j) ? 12-j : -j;
 			}
 
