@@ -79,8 +79,8 @@
 
 	if (_isAnimating)
 	{
-		var thickness   = rect.size.width * 0.1,
-		    length      = rect.size.width * 0.28,
+		var thickness   = size * 0.1,
+		    length      = size * 0.28,
 		    radius      = thickness / 2,
 		    lineRect    = CGRectMake(size / 2 - thickness / 2, 0, thickness, length),
 		    minx        = CGRectGetMinX(lineRect),
