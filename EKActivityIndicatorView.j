@@ -28,6 +28,19 @@
 	_colorBlue  = [aColor blueComponent];
 }
 
+- (void)setObjectValue:(BOOL)aValue
+{
+    switch (aValue)
+    {
+        case YES:
+            [self startAnimating];
+            break;
+        case NO:
+            [self stopAnimating];
+            break;
+    }
+}
+
 - (void)startAnimating
 {
 	if (!_isAnimating) {
