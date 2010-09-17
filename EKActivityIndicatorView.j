@@ -1,12 +1,12 @@
 @implementation EKActivityIndicatorView : CPView
 {
-    BOOL		_isAnimating;
+    BOOL	_isAnimating;
     int		_step;
-    CPTimer		_timer;
-    CPColor		_color;
-    float		_colorRed;
-    float		_colorGreen;
-    float		_colorBlue;
+    CPTimer	_timer;
+    CPColor	_color;
+    float	_colorRed;
+    float	_colorGreen;
+    float	_colorBlue;
 }
 
 - (id)initWithFrame:(CGRect)aFrame
