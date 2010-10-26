@@ -136,8 +136,8 @@
         CGContextAddArcToPoint(c, maxx, miny, maxx, midy, radius);
         CGContextAddArcToPoint(c, maxx, maxy, midx, maxy, radius);
         CGContextAddArcToPoint(c, minx, maxy, minx, midy, radius);
-        CGContextFillPath(c);
         CGContextClosePath(c);
+        CGContextFillPath(c);
         CGContextTranslateCTM(c, size/2, size/2);
         CGContextRotateCTM(c, 30*(Math.PI/180));
         CGContextTranslateCTM(c, -size/2, -size/2);
