@@ -37,7 +37,9 @@ And if you have enough, stop it:
 ## Contributors
 
 [Elias Klughammer](http://github.com/elii)
+
 [Ben Langfeld](http://github.com/benlangfeld)
+
 [Evadne Wu](http://github.com/monoceroi)
 
 
