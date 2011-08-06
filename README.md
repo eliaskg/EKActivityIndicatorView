@@ -3,7 +3,7 @@ EKActivityIndicatorView
 
 EKActivityIndicatorView is a class for displaying those "here spins something the app isn't crashed"-wheels for the [Cappuccino](http://www.cappuccino.org) framework.
 
-It works completely without images by drawing the animation with CoreGraphics. This guarantees a stunning performance and the ability of setting the view's size and color with ease. All this is brought to you by a 3.5 KB file.
+It works completely without images by drawing everything with Canvas. If available, the animation is created by CSS3 rotating. If this should be unavailable, the canvas will be redrawn for every frame. Both solutions guarantee a stunning performance and the ability of setting the view's size and color with ease. All this is brought to you by a 5 KB file.
 
 Click here to see a [DEMO](http://elias.klughammer.com/EKActivityIndicatorView/)
 
@@ -23,7 +23,7 @@ Inserting an EKActivityIndicatorView in your application is dead simple:
 	
 Set your favorite color:
 	
-	[spinner setColor:[CPColor someColor]];
+	[spinner setColor:[CPColor colorWithHexString:@"404040"]];
 
 Start the animation:
 
@@ -33,13 +33,17 @@ And if you have enough, stop it:
 
 	[spinner stopAnimating];
 	
+If you don't want CSS rotations you can deactivate it by calling
+
+    [spinner setUseCSS:NO];
+	
 	
 ## Contributors
 
 [Elias Klughammer](http://github.com/elii)
 
-[Ben Langfeld](http://github.com/benlangfeld)
-
 [Evadne Wu](http://github.com/monoceroi)
+
+[Ben Langfeld](http://github.com/benlangfeld)
 
 
