@@ -1,12 +1,14 @@
 @implementation EKActivityIndicatorView : CPView
 {
-    BOOL	_isAnimating;
-    int		_step;
-    CPTimer	_timer;
-    CPColor	_color;
-    float	_colorRed;
-    float	_colorGreen;
-    float	_colorBlue;
+    BOOL	    _isAnimating;
+    BOOL        _shouldUseCSS;
+    CPString    _CSSProperty;
+    int		    _step;
+    CPTimer	    _timer;
+    CPColor	    _color;
+    float	    _colorRed;
+    float	    _colorGreen;
+    float	    _colorBlue;
 }
 
 - (id)initWithFrame:(CGRect)aFrame
@@ -14,10 +16,42 @@
     self = [super initWithFrame:aFrame];
     if(self)
     {
-        _isAnimating = NO;
+        _isAnimating    = NO;
+        _shouldUseCSS   = NO;
+    
         [self setColor:[CPColor blackColor]];
+        [self setUseCSS:YES];
     }
     return self;
+}
+
+- (BOOL)checkCSS
+{
+    var properties = ["transform", "webkitTransform", "oTransform", "MozTransform", "msTransform"];
+    
+    for (var i = 0, property; property = properties[i++];)
+    {
+        if (typeof self._DOMElement.style[property] != "undefined")
+        {
+            _CSSProperty = property;
+            break;
+        }
+    }
+}
+
+- (void)setUseCSS:(BOOL)shouldUseCSS
+{   
+    // --- Check if we can use CSS3 for rotation
+    if (!_CSSProperty)
+        [self checkCSS];
+    
+    _shouldUseCSS = shouldUseCSS;
+    
+    if (!_isAnimating)
+        return;
+    
+    [self stopAnimating];
+    [self startAnimating];
 }
 
 - (void)setColor:(CPColor)aColor
@@ -26,6 +60,9 @@
     _colorRed   = [aColor redComponent];
     _colorGreen = [aColor greenComponent];
     _colorBlue  = [aColor blueComponent];
+    
+    if (_shouldUseCSS)
+        [self setNeedsDisplay:YES];
 }
 
 - (void)setObjectValue:(BOOL)aValue
@@ -48,11 +85,15 @@
     
     _isAnimating    = YES;
     _step           = 1;
+    
+    [self setNeedsDisplay:YES];
+    
     _timer          = [CPTimer scheduledTimerWithTimeInterval:0.1
                                                        target:self
                                                      selector:@selector(timerDidFire)
                                                      userInfo:nil
                                                       repeats:YES];
+                                                      
 }
 
 - (void)stopAnimating
@@ -63,6 +104,9 @@
     _isAnimating = NO;
     [_timer invalidate];
     [self setNeedsDisplay:YES];
+    
+    if (_shouldUseCSS && _CSSProperty)
+        self._DOMElement.style[_CSSProperty] = "rotate(0deg)";
 }
 
 - (BOOL)isAnimating
@@ -81,8 +125,16 @@
         _step = 1;
     else
         _step++;
-
-    [self setNeedsDisplay:YES];
+    
+    // --- Redraw canvas if browser shouldn't / can't rotate
+    if (!_CSSProperty || !_shouldUseCSS)
+        return [self setNeedsDisplay:YES];
+    
+    // --- Animate with rotation if the browser is smart enough
+    var rad       = _step / 12 * 2 * Math.PI;
+    var radString = "rotate(" + rad + "rad)";
+    
+    self._DOMElement.style[_CSSProperty] = radString;
 }
 
 - (void)drawRect:(CGrect)rect
